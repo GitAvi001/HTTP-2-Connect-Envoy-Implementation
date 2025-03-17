@@ -1,0 +1,27 @@
+
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.32.1
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./certs:/certs  # Mounts the certificates created directory
+    ports:
+      - "10000:10000"
+    networks:
+      - envoy_network
+    depends_on:
+      - server
+    command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml --service-cluster envoy --log-level debug
+
+  server:
+    build:
+      context: ./server
+    networks:
+      - envoy_network
+    expose:
+      - "8080"
+    volumes:
+      - ./certs:/certs  # Mounts the certificates created directory
+
+networks:
+  envoy_network:
