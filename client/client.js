@@ -16,7 +16,7 @@ const client = net.createConnection({ port: 10000 }, () => {
   setTimeout(() => {
     clearInterval(interval);
     client.end();
-  }, 5000);
+  }, 10000);
 });
 
 client.on('data', (data) => {

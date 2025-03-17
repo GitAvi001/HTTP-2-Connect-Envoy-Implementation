@@ -1,5 +1,4 @@
 #envoy config to allow TCP connections from client and forwarding data through HTTP/2 CONNECT tunnel
-
 static_resources:
   listeners:
   - name: listener_0
